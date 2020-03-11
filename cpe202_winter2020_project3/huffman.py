@@ -32,10 +32,15 @@ class HuffmanNode:
         Returns:
             True if self <= other, else return False
         """
+        # overloading needed for comparison in minpq
         if self.freq < other.freq:
             return True
         elif self.freq == other.freq:
+            # if self.left or self.right or other.left or other.right:
+            #     min_left = min(self.left, self.right)
+            #     min_right = min(self.left, self.right)
             if ord(self.char) < ord(other.char):
                 return True
+            return False
         else:
             return False

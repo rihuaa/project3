@@ -79,8 +79,8 @@ class MinPQ:
             return self.arr[0]
         min = self.arr[0]
         self.arr[0] = self.arr[self.num_items - 1]
-        self.shift_down(0)
         self.num_items -= 1
+        self.shift_down(0)
         if self.capacity > 2 and self.num_items and self.capacity >= self.num_items * 4:
             self.shrink()
         return min
@@ -137,14 +137,20 @@ class MinPQ:
             None : it returns nothing
         """
         parent = self.index_parent(idx)
-        if parent < 0:
-            return
-        while self.arr[idx] < self.arr[parent]:
+        while parent >= 0 and self.arr[idx] < self.arr[parent]:
             self.arr[idx], self.arr[parent] = self.swap(self.arr[idx], self.arr[parent])
             idx = parent
             parent = self.index_parent(idx)
-            if parent < 0:
-                return
+        # self.shift_down(0)
+        # if parent < 0:
+        #     return
+        # while self.arr[idx] < self.arr[parent]:
+        #     self.arr[idx], self.arr[parent] = self.swap(self.arr[idx], self.arr[parent])
+        #     idx = parent
+        #     parent = self.index_parent(idx)
+        #     if parent < 0:
+        #         return
+        #         # shift_down(0)
 
 
     def shift_down(self, idx):
@@ -166,21 +172,23 @@ class MinPQ:
         # print('right', right)
         # print('idx', idx)
         # print('num items', self.num_items)
-        while left < end and right < end and (self.arr[left] < self.arr[idx] or self.arr[right] < self.arr[idx]):
+        while left <= end and right <= end and \
+        (self.arr[left] < self.arr[idx] or \
+        self.arr[right] < self.arr[idx]):
             if self.arr[left] < self.arr[idx]:
                 self.arr[left], self.arr[idx] = self.swap(self.arr[left], self.arr[idx])
                 idx = left
-                left = self.index_left(idx)
-                if left > end:
-                    break
-            if self.arr[right] < self.arr[idx]:
+                # if left > end:
+                #     break
+            elif self.arr[right] < self.arr[idx]:
                 self.arr[right], self.arr[idx] = self.swap(self.arr[right], self.arr[idx])
                 idx = right
-                right = self.index_right(idx)
-                if right > end:
-                    break
+                # if right > end:
+                #     break
             else:
                 break
+            left = self.index_left(idx)
+            right = self.index_right(idx)
 
     def swap(self, a, b):
         temp = a
