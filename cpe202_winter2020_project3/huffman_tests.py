@@ -3,33 +3,33 @@ import filecmp
 from huffman_coding import cnt_freq, create_huff_tree, create_code, huffman_encode
 
 class TestList(unittest.TestCase):
-   # def test_cnt_freq(self):
-   #    freqlist	= cnt_freq("test1.txt")
-   #    anslist = [0]*256
-   #    anslist[97:104] = [2, 4, 8, 16, 0, 2, 0]
-   #    self.assertListEqual(freqlist[97:104], anslist[97:104])
-   #
-   # def test_create_huff_tree(self):
-   #    freqlist = cnt_freq("test1.txt")
-   #    hufftree = create_huff_tree(freqlist)
-   #    numchars = 32
-   #    charforroot = "a"
-   #    self.assertEqual(hufftree.freq, 32)
-   #    self.assertEqual(hufftree.char, 'a')
-   #    left = hufftree.left
-   #    self.assertEqual(left.freq, 16)
-   #    self.assertEqual(left.char, 'a')
-   #    right = hufftree.right
-   #    self.assertEqual(right.freq, 16)
-   #    self.assertEqual(right.char, 'd')
+   def test_cnt_freq(self):
+      freqlist	= cnt_freq("test1.txt")
+      anslist = [0]*256
+      anslist[97:104] = [2, 4, 8, 16, 0, 2, 0]
+      self.assertListEqual(freqlist[97:104], anslist[97:104])
 
-   # def test_create_code(self):
-   #    freqlist = cnt_freq("test1.txt")
-   #    hufftree = create_huff_tree(freqlist)
-   #    codes = create_code(hufftree)
-   #    self.assertEqual(codes[ord('d')], '1')
-   #    self.assertEqual(codes[ord('a')], '0000')
-   #    self.assertEqual(codes[ord('f')], '0001')
+   def test_create_huff_tree(self):
+      freqlist = cnt_freq("test1.txt")
+      hufftree = create_huff_tree(freqlist)
+      numchars = 32
+      charforroot = "a"
+      self.assertEqual(hufftree.freq, 32)
+      self.assertEqual(hufftree.char, 'a')
+      left = hufftree.left
+      self.assertEqual(left.freq, 16)
+      self.assertEqual(left.char, 'a')
+      right = hufftree.right
+      self.assertEqual(right.freq, 16)
+      self.assertEqual(right.char, 'd')
+
+   def test_create_code(self):
+      freqlist = cnt_freq("test1.txt")
+      hufftree = create_huff_tree(freqlist)
+      codes = create_code(hufftree)
+      self.assertEqual(codes[ord('d')], '1')
+      self.assertEqual(codes[ord('a')], '0000')
+      self.assertEqual(codes[ord('f')], '0001')
 
    def test_create_code2(self):
       freqlist = cnt_freq("test2.txt")
@@ -38,32 +38,32 @@ class TestList(unittest.TestCase):
       codes = create_code(hufftree)
       # print('test 2 codes:\n', codes)
       # print(hufftree)
-      # for i in range(len(freqlist)):
-      #     if freqlist[i] != 0:
-      #         print('char: ', chr(i), '\tfreq: ', freqlist[i], '\tcode: ', codes[i])
-      # print('g', codes[ord('g')])
-      # print('o', codes[ord('o')])
-      # print('p', codes[ord('p')])
-      # print('h', codes[ord('h')])
-      # print('e', codes[ord('e')])
-      # print('r', codes[ord('r')])
-      # print('s', codes[ord('s')])
-      # print('space', codes[ord(' ')])
-      # print('\/n', codes[ord('\n')])
+      for i in range(len(freqlist)):
+          if freqlist[i] != 0:
+              print('char: ', chr(i), '\tfreq: ', freqlist[i], '\tcode: ', codes[i])
+      print('g', codes[ord('g')])
+      print('o', codes[ord('o')])
+      print('p', codes[ord('p')])
+      print('h', codes[ord('h')])
+      print('e', codes[ord('e')])
+      print('r', codes[ord('r')])
+      print('s', codes[ord('s')])
+      print('space', codes[ord(' ')])
+      print('\/n', codes[ord('\n')])
 
-   # def test_create_code3(self):
-   #    freqlist = cnt_freq("test3.txt")
-   #    hufftree = create_huff_tree(freqlist)
-   #    codes = create_code(hufftree)
-   #    print('s ', codes[ord('s')])
-   #    print('t ', codes[ord('t')])
-   #    print('/n ', codes[ord('\n')])
+   def test_create_code3(self):
+      freqlist = cnt_freq("test3.txt")
+      hufftree = create_huff_tree(freqlist)
+      codes = create_code(hufftree)
+      print('s ', codes[ord('s')])
+      print('t ', codes[ord('t')])
+      print('/n ', codes[ord('\n')])
 
-   # def test_01_encodefile(self):
-   #    huffman_encode("test1.txt", "encodetest1.txt")
-   #    # capture errors by running 'filecmp' on your encoded file
-   #    # with a *known* solution file
-   #    self.assertTrue(filecmp.cmp("encodetest1.txt", "test1.out"))
+   def test_01_encodefile(self):
+      huffman_encode("test1.txt", "encodetest1.txt")
+      # capture errors by running 'filecmp' on your encoded file
+      # with a *known* solution file
+      self.assertTrue(filecmp.cmp("encodetest1.txt", "test1.out"))
 
    def test_02_encodefile(self):
       huffman_encode("test2.txt", "encodetest2.txt")
@@ -71,11 +71,11 @@ class TestList(unittest.TestCase):
       # with a *known* solution file
       self.assertTrue(filecmp.cmp("encodetest2.txt", "test2.out"))
 
-   # def test_03_encodefile(self):
-   #    huffman_encode("test3.txt", "encodetest3.txt")
-   #    # capture errors by running 'filecmp' on your encoded file
-   #    # with a *known* solution file
-   #    self.assertTrue(filecmp.cmp("encodetest3.txt", "test3.out"))
+   def test_03_encodefile(self):
+      huffman_encode("test3.txt", "encodetest3.txt")
+      # capture errors by running 'filecmp' on your encoded file
+      # with a *known* solution file
+      self.assertTrue(filecmp.cmp("encodetest3.txt", "test3.out"))
 
    # def test_01_decodefile(self):
    #    freqlist = cnt_freq("test1.txt")

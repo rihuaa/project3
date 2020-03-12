@@ -22,7 +22,7 @@ def cnt_freq(filename):
 def create_huff_tree(list_of_freqs):
     """returns the root node of a Huffman Tree
     """
-    hufflist = []
+    # hufflist = []
     tree = MinPQ()
     for i in range(len(list_of_freqs)):
         if list_of_freqs[i] != 0:
@@ -38,16 +38,11 @@ def create_huff_tree(list_of_freqs):
         right = tree.del_min()
         freq_sum = left.freq + right.freq
         parent = HuffmanNode(freq_sum, min(left.char, right.char))
-        # if left.char < right.char:
-        #     parent = HuffmanNode(freq_sum, left.char)
-        # else: # right.char < left.char:
-        #     parent = HuffmanNode(freq_sum, right.char)
         parent.left = left
         parent.right = right
         tree.insert(parent)
-    print('dlafjdls;f', tree.arr[0])
-    # print('Tree before return: ', tree)
     return tree.arr[0]
+    # print('Tree before return: ', tree)
     # i = 0
     # while i < len(tree.arr) - 1:
     #     if tree.arr[i + 1] is None:
@@ -60,33 +55,12 @@ def create_huff_tree(list_of_freqs):
 
     # print('TREE AFTER SORT:\n', tree)
 
-
-    #
-    # # huff_tree = MinPQ(huff_list)
-    # for i in range(tree.capacity):
-    #     if 2*i + 1 < tree.capacity:
-    #         tree.arr[i].left = tree.arr[2*i + 1]
-    #     if 2*i + 2 < tree.capacity:
-    #         tree.arr[i].right = tree.arr[2*i + 2]
-    # tree.heapify()
-    # print(tree)
-
 def create_code(root_node):
     """returns a Python list of 256 strings representing the code
     Return an array of size 256 whose idex corresponds to ascii code of a letter.
     """
     code_list = [None] * 256
     return create_code_helper(root_node, code_list, code='')
-    # if root_node is None:
-    #     return
-    # if root_node.left is None and root_node.right is None:
-    #     idx = ord(root_node.char)
-    #     code_list[idx] = code
-    #     return
-    # create_code(root_node.left, code + '0')
-    # create_code(root_node.right, code + '1')
-    # print(code_list)
-    # return code_list
 
 def create_code_helper(root_node, code_list, code):
     if root_node is None:
@@ -110,7 +84,6 @@ def huffman_encode(in_file, out_file):
     print('before calling create code')
     code_list = create_code(huff_root)
     with open(in_file) as text, open(out_file, 'w') as out:
-        # uniques = []
         for line in text:
             # print('line', line)
             # line = line.split()
@@ -124,19 +97,6 @@ def huffman_encode(in_file, out_file):
                 s = code_list[idx]
                 # print('code', s)
                 out.write(s)
-                # print('char', char)
-                # if char not in uniques:
-                #     uniques.append(char)
-        # if ' ' in uniques:
-        #     uniques.remove(' ')
-        # if '\n' in uniques:
-        #     uniques.remove('\n')
-        # print(uniques)
-        # for char in uniques:
-        #     idx = ord(char)
-        #     # print('index', idx)
-        #     s = code_list[idx] * freqlist[idx]
-        #     out.write(s)
 
 def huffman_decode(list_of_freqs, encoded_file, decode_file):
     """decode encoded_file and write the decoded text to decode_file.
