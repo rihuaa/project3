@@ -21,10 +21,22 @@ def create_huff_tree(list_of_freqs):
     """returns the root node of a Huffman Tree
     """
     tree = MinPQ()
+<<<<<<< HEAD
+    for i in range(len(list_of_freqs)):
+        if list_of_freqs[i] != 0:
+            new = HuffmanNode(list_of_freqs[i], chr(i))
+            # tree.insert(new)
+            hufflist.append(new)
+    hufflist.sort()
+    # print(hufflist)
+    tree = MinPQ(hufflist)
+    # print('TREE AFTER INSERTION:\n', tree)
+=======
     for idx, freq in enumerate(list_of_freqs):
         if freq != 0:
             new = HuffmanNode(freq, chr(idx))
             tree.insert(new)
+>>>>>>> 1c1c70a6eb7b91e2d3714eb49057c9513665ab0d
     while tree.num_items > 1:
         left = tree.del_min()
         right = tree.del_min()
