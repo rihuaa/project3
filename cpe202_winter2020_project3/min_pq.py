@@ -34,7 +34,7 @@ class MinPQ:
         return 'MinPQ(capacity=%s, num_items=%s, arr=%s)'\
         % (self.capacity, self.num_items, self.arr)
 
-    def heapify(self, arr):
+    def heapify(self, arr=None):
         """initialize the queue with a given array and conver the array into a min heap
         Args:
             arr (list): an array
@@ -77,13 +77,13 @@ class MinPQ:
         if self.num_items == 1:
             self.num_items -= 1
             return self.arr[0]
-        min = self.arr[0]
+        min_val = self.arr[0]
         self.arr[0] = self.arr[self.num_items - 1]
         self.num_items -= 1
         self.shift_down(0)
         if self.capacity > 2 and self.num_items and self.capacity >= self.num_items * 4:
             self.shrink()
-        return min
+        return min_val
 
     def min(self):
         """returns the minimum item in the queue without deleting the item
@@ -138,20 +138,9 @@ class MinPQ:
         """
         parent = self.index_parent(idx)
         while parent >= 0 and self.arr[idx] < self.arr[parent]:
-            self.arr[idx], self.arr[parent] = self.swap(self.arr[idx], self.arr[parent])
+            self.arr[idx], self.arr[parent] = swap(self.arr[idx], self.arr[parent])
             idx = parent
             parent = self.index_parent(idx)
-        # self.shift_down(0)
-        # if parent < 0:
-        #     return
-        # while self.arr[idx] < self.arr[parent]:
-        #     self.arr[idx], self.arr[parent] = self.swap(self.arr[idx], self.arr[parent])
-        #     idx = parent
-        #     parent = self.index_parent(idx)
-        #     if parent < 0:
-                # return
-                # shift_down(0)
-
 
     def shift_down(self, idx):
         """shifts down an item in the queue using tail recursion.
@@ -171,19 +160,13 @@ class MinPQ:
             right = self.index_right(idx)
             smallest = self.index_minchild(left, right, end)
             if smallest == left:
-                self.arr[left], self.arr[idx] = self.swap(self.arr[left], self.arr[idx])
+                self.arr[left], self.arr[idx] = swap(self.arr[left], self.arr[idx])
                 idx = left
             elif smallest == right:
-                self.arr[right], self.arr[idx] = self.swap(self.arr[right], self.arr[idx])
+                self.arr[right], self.arr[idx] = swap(self.arr[right], self.arr[idx])
                 idx = right
             else: # idx already min
                 return
-
-    def swap(self, a, b):
-        temp = a
-        a = b
-        b = temp
-        return a, b
 
     def index_left(self, idx):
         """returns the index of the left child
@@ -232,17 +215,6 @@ class MinPQ:
         Returns:
             int : it returns the index of the min child
         """
-        # min = -1
-        # index_minchild_helper(left, right, end, min)
-        # while left <= end:
-        # smallest = parent
-        # smallest = left if left <= end and self.arr[left] < self.arr[parent]
-        # smallest = right if smallest == left and right <= end and \
-        # self.arr[right] < self.arr[left]
-        #
-        # self.arr[right] < self.arr[parent]
-        # and right <= end and
-
         parent = self.index_parent(left)
         smallest = parent
         if left <= end and right <= end:
@@ -250,26 +222,19 @@ class MinPQ:
                 smallest = left if self.arr[left] < self.arr[right] else right
             if smallest == parent and self.arr[right] < self.arr[parent]:
                 smallest = right
-        elif left > end and right <= end:
+        # elif left > end and right <= end:
+        elif left > end >= right:
             if self.arr[right] < self.arr[parent]:
                 smallest = right
-        elif left <= end and right > end:
+        elif left <= end < right:
             if self.arr[left] < self.arr[parent]:
                 smallest = left
         else: # left > end and right > end
             smallest = parent
         return smallest
 
-    # def min_child(self, i, end):
-    #     """compute the index of child node with minimum key value
-    #
-    #     Args:
-    #         items (list) : a list of items
-    #         i (int) : index of the node
-    #         end (int) : the last index of the heap
-    #
-    #     Returns:
-    #         int : the index of the child node with minimum key value.
-    #     """
-    #     left =
-    #     if self.arr[i]
+def swap(item1, item2):
+    """swaps content of item1 and item2
+    """
+    item2, item1 = item1, item2
+    return item1, item2

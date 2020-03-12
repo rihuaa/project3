@@ -1,6 +1,7 @@
 import unittest
 import filecmp
-from huffman_coding import cnt_freq, create_huff_tree, create_code, huffman_encode
+from huffman_coding import cnt_freq, create_huff_tree, create_code
+from huffman_coding import huffman_encode, huffman_decode
 
 class TestList(unittest.TestCase):
    def test_cnt_freq(self):
@@ -34,30 +35,27 @@ class TestList(unittest.TestCase):
    def test_create_code2(self):
       freqlist = cnt_freq("test2.txt")
       hufftree = create_huff_tree(freqlist)
-      # print('test 2 tree:\n', hufftree)
       codes = create_code(hufftree)
-      # print('test 2 codes:\n', codes)
-      # print(hufftree)
-      for i in range(len(freqlist)):
-          if freqlist[i] != 0:
-              print('char: ', chr(i), '\tfreq: ', freqlist[i], '\tcode: ', codes[i])
-      print('g', codes[ord('g')])
-      print('o', codes[ord('o')])
-      print('p', codes[ord('p')])
-      print('h', codes[ord('h')])
-      print('e', codes[ord('e')])
-      print('r', codes[ord('r')])
-      print('s', codes[ord('s')])
-      print('space', codes[ord(' ')])
-      print('\/n', codes[ord('\n')])
+      # for i in range(len(freqlist)):
+      #     if freqlist[i] != 0:
+      #         print('char: ', chr(i), '\tfreq: ', freqlist[i], '\tcode: ', codes[i])
+      # print('g', codes[ord('g')])
+      # print('o', codes[ord('o')])
+      # print('p', codes[ord('p')])
+      # print('h', codes[ord('h')])
+      # print('e', codes[ord('e')])
+      # print('r', codes[ord('r')])
+      # print('s', codes[ord('s')])
+      # print('space', codes[ord(' ')])
+      # print('\/n', codes[ord('\n')])
 
    def test_create_code3(self):
       freqlist = cnt_freq("test3.txt")
       hufftree = create_huff_tree(freqlist)
       codes = create_code(hufftree)
-      print('s ', codes[ord('s')])
-      print('t ', codes[ord('t')])
-      print('/n ', codes[ord('\n')])
+      # print('s ', codes[ord('s')])
+      # print('t ', codes[ord('t')])
+      # print('/n ', codes[ord('\n')])
 
    def test_01_encodefile(self):
       huffman_encode("test1.txt", "encodetest1.txt")
@@ -77,26 +75,26 @@ class TestList(unittest.TestCase):
       # with a *known* solution file
       self.assertTrue(filecmp.cmp("encodetest3.txt", "test3.out"))
 
-   # def test_01_decodefile(self):
-   #    freqlist = cnt_freq("test1.txt")
-   #    huffman_decode(freqlist,"test1.out", "decodetest1.txt")
-   #    # capture errors by running 'filecmp' on your encoded file
-   #    # with a *known* solution file
-   #    self.assertTrue(filecmp.cmp("decodetest1.txt", "test1.txt"))
-   #
-   # def test_02_decodefile(self):
-   #    freqlist = cnt_freq("test2.txt")
-   #    huffman_decode(freqlist,"test2.out", "decodetest2.txt")
-   #    # capture errors by running 'filecmp' on your encoded file
-   #    # with a *known* solution file
-   #    self.assertTrue(filecmp.cmp("decodetest2.txt", "test2.txt"))
-   #
-   # def test_03_decodefile(self):
-   #    freqlist = cnt_freq("test3.txt")
-   #    huffman_decode(freqlist, "test3.out", "decodetest3.txt")
-   #    # capture errors by running 'filecmp' on your encoded file
-   #    # with a *known* solution file
-   #    self.assertTrue(filecmp.cmp("decodetest3.txt", "test3.txt"))
+   def test_01_decodefile(self):
+      freqlist = cnt_freq("test1.txt")
+      huffman_decode(freqlist,"test1.out", "decodetest1.txt")
+      # capture errors by running 'filecmp' on your encoded file
+      # with a *known* solution file
+      self.assertTrue(filecmp.cmp("decodetest1.txt", "test1.txt"))
+
+   def test_02_decodefile(self):
+      freqlist = cnt_freq("test2.txt")
+      huffman_decode(freqlist,"test2.out", "decodetest2.txt")
+      # capture errors by running 'filecmp' on your encoded file
+      # with a *known* solution file
+      self.assertTrue(filecmp.cmp("decodetest2.txt", "test2.txt"))
+
+   def test_03_decodefile(self):
+      freqlist = cnt_freq("test3.txt")
+      huffman_decode(freqlist, "test3.out", "decodetest3.txt")
+      # capture errors by running 'filecmp' on your encoded file
+      # with a *known* solution file
+      self.assertTrue(filecmp.cmp("decodetest3.txt", "test3.txt"))
 
 if __name__ == '__main__':
    unittest.main()
